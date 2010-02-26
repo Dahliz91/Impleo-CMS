@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : config.xml
+    Created on : v1.0 2010-02-23::21.52
+    Updated on : v1.0 2010-02-24::22.45
+    Author     : Johan Dahlberg
+    Description:
+        The main config file.
+-->
+<configdata>
+    <production>
+        <database>
+            <adapter>Pdo_Mysql</adapter>
+            <hostname>localhost</hostname>
+            <username>username</username>
+            <password>password</password>
+            <dbname>impleo</dbname>
+            <prefix>impleo_</prefix>
+        </database>
+        <general>
+            <template>default</template>
+            <admintemplate>default</admintemplate>
+        </general>
+        <mvc>
+            <exceptions>0</exceptions>
+        </mvc>
+        <phpSettings>
+            <error_reporting>0</error_reporting>
+            <display_startup_errors>0</display_startup_errors>
+        </phpSettings>
+        <system>
+            <status>offline</status>
+            <url>http://localhost</url>
+        </system>
+    </production>
+    <development extends="production">
+        <mvc>
+            <exceptions>1</exceptions>
+        </mvc>
+        <phpSettings>
+            <error_reporting>1</error_reporting>
+            <display_startup_errors>1</display_startup_errors>
+        </phpSettings>
+    </development>
+</configdata>

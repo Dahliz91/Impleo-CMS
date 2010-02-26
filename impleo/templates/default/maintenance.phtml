@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="<?php echo $this->system->version; ?>" />
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headLink()->appendStylesheet($this->config->system->url . '/css/templates/' . $this->config->general->template . '/maintenance.css'); ?>
+</head>
+<body>
+<div id="main">
+    <div id="mainContent">
+        <div id="infrmationContent">
+            <img src="" alt="" id="logo">
+            <div id="top">
+                <h1>Maintenance Mode</h1>
+                <p>
+                    <span id="icon"></span>
+                    <strong>SITE is currently undergoing scheduled maintenance. Please try back in 60 minutes. Sorry for the inconvenience.</strong>
+                    
+                </p>
+            </div>
+            <div id="bottom">
+                <ul>
+                    <li><strong>Webmaster</strong> <a href="mailto:webmaster@localhost.com">Webmaster@localhost.com</a></li>
+                </ul>
+                <p id="copy">&copy; 2009-2010 <a href="<?php echo $this->config->system->url; ?>"><?php echo $this->siteName; ?></a> - Powered by <a href="http://www.impleocms.se/" title="Impleo CMS">Impleo CMS</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
