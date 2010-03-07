@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::14.05
-     * @version			v1.0 2010-02-23::14.05
+     * @version			v1.0 2010-02-27::16.55
      */
 
 class IndexController extends Impleo_ControllerAction {
@@ -17,5 +17,12 @@ class IndexController extends Impleo_ControllerAction {
      */
     public function init() {
         parent::init();
+    }
+
+    /*
+     * The default action
+     */
+    public function indexAction() {
+
     }
 }

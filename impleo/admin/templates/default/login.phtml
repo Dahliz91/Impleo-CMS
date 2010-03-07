@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Impleo CMS - Administration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="<?php echo $this->system->version; ?>" />
+    <?php echo $this->headMeta(); ?>
+    
+    <?php echo $this->headLink()->appendStylesheet($this->config->system->url . '/css/admintemplates/' . $this->config->general->admintemplate . '/login.css'); ?>
+</head>
+<body>
+<div id="container">
+    <div class="logo">
+        <a href="<?php $this->config->system->url . '/admin'; ?>"><img src="<?php echo $this->config->system->url . '/images/admintemplates/' . $this->config->general->admintemplate . '/logo.png'; ?>" alt="Impleo CMS Administration" /></a>
+    </div>
+    <div id="box">
+        <form action="" method="post">
+            <p class="main">
+                <label>Username: </label>
+                <input type="text" name="username" />
+                <label>Password: </label>
+                <input type="password" name="password" />
+            </p>
+            <p class="space">
+                <span><input type="checkbox">Remember me?</span>
+                <input type="submit" value="Login" class="login" />
+            </p>
+        </form>
+    </div>
+</div>
+<?php echo $this->layout()->content ?>
+</body>
+</html>

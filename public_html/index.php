@@ -8,7 +8,7 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-02-22::12.00
-     * @version		v1.0 2010-02-22::12.00
+     * @version		v1.0 2010-02-27::16.35
      */
 
     /**
@@ -16,6 +16,7 @@
      */
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
+    ini_set('error_reporting', -1);
     /*if(file_exists('./install/install.php')) {
         require './install/install.php';
     } else {*/

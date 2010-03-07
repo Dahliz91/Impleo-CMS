@@ -8,11 +8,11 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::22.42
-     * @version			v1.0 2010-02-23::22.42
+     * @version			v1.0 2010-03-03::22.48
      */
 
 
-class ErrorController extends ImpleoCMS_ControllerAdmin {
+class Admin_ErrorController extends ImpleoCMS_ControllerAdmin {
     /**
      * errorAction()
      *

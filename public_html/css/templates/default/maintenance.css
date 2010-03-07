@@ -1,0 +1,80 @@
+body {
+	font-family:"Myriad Pro","Myriad Set","Myriad Apple",Myriad,Helvetica Nueue,Arial,Verdana,Sans-serif;
+	background: #EBEBEB;
+	}
+h1,p,li{
+	color:#333333;
+}
+li{
+	padding:0;
+	margin-left:-40px;
+	list-style: none;
+	font-size:0.8em;
+}
+p{
+	text-align:left;
+	line-height: 1.4em;
+	font-size:1.0em;
+}
+h1{
+	font-size: 22px;
+	padding-bottom:0px;
+	line-height: 1em;
+}
+#logo{
+	margin:20px auto;
+	width:106px;
+	display:block;
+}
+#main{
+	margin-top:100px;
+}
+#mainContent{
+	margin:0 auto;
+	padding:0;
+	width:530px;
+	border:14px solid #dfe0e2;
+	min-height:450px;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	border-radius:7px;
+	background: #fff;
+}
+#infrmationContent{
+	border:6px solid #fff;
+	-moz-border-radius:7px;
+	-webkit-border-radius:7px;
+	height:470px;
+	margin:-3px;
+}
+#top{
+	margin:20px auto;
+	padding:0 10px 0 10px;
+	width:430px;
+	border-top:3px dotted #ebebeb;
+	border-bottom:3px dotted #ebebeb;
+}
+
+#bottom{
+	margin:20px auto;
+	width:430px;
+	padding:0;
+}
+font-
+#right{
+	border:1px solid green;
+	padding:5px 10px 0 10px;
+	width:200px;
+	float:right;
+}
+#copy{
+	font-size: 12px;
+	text-align:left;
+}
+#icon{
+	display:block;
+	background:transparent url(socket.png)no-repeat top left;
+	width:128px;
+	height:128px;
+	float:right;
+}

@@ -1,14 +1,14 @@
 <?php
     /**
-     * @author			Johan Dahlberg <johan.dahlberg@live.se>
-     * @copyright		Copyright (c) 2010, Johan Dahlberg
-     * @license			Creative Commons 3.0 (Attribution-NonCommercial-ShareAlike 3.0 Unported)
-     * @link			http://www.impleocms.se
-     * @package			Impleo CMS
+     * @author		Johan Dahlberg <johan.dahlberg@live.se>
+     * @copyright	Copyright (c) 2010, Johan Dahlberg
+     * @license		Creative Commons 3.0 (Attribution-NonCommercial-ShareAlike 3.0 Unported)
+     * @link		http://www.impleocms.se
+     * @package		Impleo CMS
      *
-     * @subpackage		Core Package
-     * @since			v1.0 2010-02-22::22.44
-     * @version			v1.0 2010-02-25::22.09
+     * @subpackage	Core Package
+     * @since		v1.0 2010-02-22::22.44
+     * @version		v1.0 2010-03-03::22.51
      */
 
 class Kernel {
@@ -63,6 +63,7 @@ class Kernel {
         // Set error settings
         ini_set('display_startup_errors', $this->config->phpSettings->display_startup_errors);
         ini_set('display_errors', $this->config->phpSettings->display_errors);
+        ini_set('error_reporting', $this->config->phpSettings->error_reporting);
 
         $frontController = $this->initMVC();
         $this->initDB();
@@ -117,15 +118,15 @@ class Kernel {
         $router = $frontController->getRouter();
         $router->addDefaultRoutes();
         
-        if($this->config->system->status == 'offline') {
+        if($this->config->system->status == 'online') {
             $options = array(
-                'layout'     => 'maintenance',
+                'layout'     => 'default',
                 'layoutPath' => APP_PATH . '/templates/' . $this->config->general->template . '/',
                 //'contentKey' => 'CONTENT',
             );
         } else {
             $options = array(
-                'layout'     => 'default',
+                'layout'     => 'maintenance',
                 'layoutPath' => APP_PATH . '/templates/' . $this->config->general->template . '/',
                 //'contentKey' => 'CONTENT',
             );
@@ -143,13 +144,26 @@ class Kernel {
     public function initRoutes(Zend_Controller_Front $frontController) {
         // Retrieve the router from the frontController
         $router = $frontController->getRouter();
-            //$router->addRoute('', new Zend_Controller_Router_Route('default'));
+        
         $route = new Zend_Controller_Router_Route(
-            ':action',
-            array('module'  => 'default')
+            ':route',
+            array(
+				'module'   		=> 'default',
+				'controller'	=> 'index',
+				'action'		=> 'index'
+			)
         );
-        $router->addRoute(':action', $route);
-        $router->addRoute('admin/', new Zend_Controller_Router_Route('admin'));
+	$route2 = new Zend_Controller_Router_Route(
+            'admin/:controller/:action/*',
+			array(
+				'module' 		=> 'admin',
+				'controller'	=> 'index',
+				'action'		=> 'index'
+			)
+        );
+
+        $router->addRoute('admin', $route2);
+        $router->addRoute('default', $route);
 
         return $router;
     }
@@ -166,7 +180,7 @@ class Kernel {
     /**
      * @param Zend_Controller_Request_Abstract $response
      */
-    public function render(Zend_Controller_Request_Abstract $response) {
+    public function render(Zend_Controller_Response_Abstract $response) {
         $response->sendHeaders();
         $response->outputBody();
     }

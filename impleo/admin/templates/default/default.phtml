@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>Impleo CMS - Administration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="<?php echo $this->system->version; ?>" />
+    <?php echo $this->headMeta(); ?>
+    <?php
+        $this->jQuery()->enable()
+             ->uiEnable();
+        echo $this->jQuery();
+
+        $this->headScript()->appendFile('/modules/custom.js')
+                           ->appendFile('/modules/superfish.js')
+                           ->appendFile('/modules/easyTooltip.js');
+        echo $this->headScript();
+    ?>
+    <?php echo $this->headLink()->appendStylesheet($this->config->system->url . '/css/admintemplates/' . $this->config->general->admintemplate . '/style.css'); ?>
+</head>
+<body>
+<div id="container">
+    <div id="header">
+        <div id="top">
+            <div class="logo">
+                <a href="#" title="Impleo CMS Administration" class="tooltip"><img src="<?php echo $this->config->system->url . '/images/admintemplates/' . $this->config->general->admintemplate . '/logo.png'; ?>" alt="Impleo CMS Administration" /></a>
+            </div>
+            <div class="meta">
+                <p>Welcome, Unknown Admin! <a href="#" title="1 new system message" class="tooltip">1 new system message!</a></p>
+                <ul>
+                    <li><a href="#" title="Logout" class="tooltip"><span class=""ui-icon ui-icon-power"></span>Logout</a></li>
+                    <li><a href="#" title="Settings" class="tooltip"><span class=""ui-icon ui-icon-wrench"></span>Settings</a></li>
+                    <li><a href="#" title="My account" class="tooltip"><span class=""ui-icon ui-icon-person"></span>My account</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="navbar">
+            <ul class="nav sf-js-enabled sf-shadow">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Users</a></li>
+                <li class="">
+                    <a class="sf-with-ul" href="#">Modules<span class="sf-sub-indicator"> &raquo;</span></a>
+                    <ul style="display: none; visibility: hidden;">
+                        <li><a href="#">Module 1</a></li>
+                        <li><a href="#">Module 2</a></li>
+                        <li class=""><a href="#" class="sf-with-ul">Articles<span class="sf-sub-indicator"> &raquo;</span></a>
+                            <ul style="display: none; visibility: hidden;">
+                                <li><a href="#">Add article</a></li>
+                                <li><a href="#" class="sf-with-ul">List articles<span class="sf-sub-indicator"> &raquo;</span></a>
+                                    <ul style="display: none; visibility: hidden;">
+                                        <li><a href="#">Menu link 1</a></li>
+                                        <li><a href="#">Menu link 2</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Menu Link 1</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Module 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div id="search">
+            <form action="" method="POST">
+                <p>
+                    <input type="submit" value="" class="but" />
+                    <input type="text" name="q" value="Search" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;" />
+                </p>
+            </form>
+        </div>
+    </div>
+    <div id="bgwrap">
+        <div id="content">
+            <?php echo $this->layout()->content ?>
+        </div>
+        <div id="sidebar">
+            <?php echo  $this->render('sidebar.phtml') ?>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <p class="mid">
+	<a href="#" title="Top" class="tooltip">Top</a>·
+        <a href="#" title="Home" class="tooltip">Home</a>·
+        <a href="#" title="Settings" class="tooltip">Settings</a>·
+        <a href="#" title="Logout" class="tooltip">Logout</a>
+    </p>
+    <p class="mid">
+	© <a href="http://www.impleocms.se" title="Impleo CMS">Impleo CMS</a> 2010. All rights reserved.<br />
+        Designed by <a href="http://www.johandahlberg.se" title="Johan Dahlberg">Johan Dahlberg</a>
+    </p>
+</div>
+
+<!-- BEGIN Welcome Message -->
+
+<div aria-labelledby="ui-dialog-title-dialog" role="dialog" tabindex="-1" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-draggable ui-resizable" style="display: none; position: absolute; overflow: hidden; z-index: 1000; outline: 0px none;">
+    <div style="-moz-user-select: none;" unselectable="on" class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+        <span style="-moz-user-select: none;" unselectable="on" id="ui-dialog-title-dialog" class="ui-dialog-title">Welcome message!</span>
+        <a style="-moz-user-select: none;" unselectable="on" role="button" class="ui-dialog-titlebar-close ui-corner-all" href="#">
+            <span style="-moz-user-select: none;" unselectable="on" class="ui-icon ui-icon-closethick">close</span>
+        </a>
+    </div>
+    <div class="ui-dialog-content ui-widget-content" id="dialog">
+        <p>Welcome to the <b>Impleo CMS Administration</b>!</p>
+        <p>Impleo CMS is a powerful CMS system</p>
+        <p>And this is a custom message text that you can modify to fit your needs.</p>
+    </div>
+    <div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-n"></div>
+    <div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-e"></div>
+    <div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-s"></div>
+    <div style="-moz-user-select: none;" unselectable="on" class="ui-resizable-handle ui-resizable-w"></div>
+    <div unselectable="on" style="z-index: 1001; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se ui-icon-grip-diagonal-se"></div>
+    <div unselectable="on" style="z-index: 1002; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-sw"></div>
+    <div unselectable="on" style="z-index: 1003; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-ne"></div>
+    <div unselectable="on" style="z-index: 1004; -moz-user-select: none;" class="ui-resizable-handle ui-resizable-nw"></div>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+        <button class="ui-state-default ui-corner-all" type="button">Ok</button>
+        <button class="ui-state-default ui-corner-all" type="button">Cancel</button>
+    </div>
+</div>
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all ui-helper-hidden-accessible"></div>
+
+ <!-- END Welcome Message -->
+</body>
+</html>

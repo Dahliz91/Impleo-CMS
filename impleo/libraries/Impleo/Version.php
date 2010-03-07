@@ -8,10 +8,10 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-22::22.50
-     * @version			v1.0 2010-02-24::22.56
+     * @version			v1.0 2010-02-27::16.47
      */
 
-class Version {
+class Impleo_Version {
     public $version = 'Impleo CMS 1.0 Pre Alpha';
     public $versionID = '1.0 Pre Alpha';
 

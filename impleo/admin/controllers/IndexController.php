@@ -8,14 +8,21 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::22.06
-     * @version			v1.0 2010-02-23::22.06
+     * @version			v1.0 2010-02-27::16.56
      */
 
-class IndexController extends Impleo_ControllerAdmin {
+class Admin_IndexController extends Impleo_ControllerAdmin {
     /**
      * The init function
      */
     public function init() {
         parent::init();
+    }
+
+    /*
+     * The default action
+     */
+    public function indexAction() {
+
     }
 }

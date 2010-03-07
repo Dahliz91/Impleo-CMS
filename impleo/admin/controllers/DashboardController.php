@@ -7,19 +7,24 @@
      * @package			Impleo CMS
      *
      * @subpackage		Core Package
-     * @since			v1.0 2010-02-23::22.07
-     * @version			v1.0 2010-03-05::15.33
+     * @since			v1.0 2010-03-05::15.38
+     * @version			v1.0 2010-03-05::15.38
      */
 
-class Impleo_ControllerAdmin extends Impleo_ControllerAction {
+class Admin_DashboardController extends Impleo_ControllerAdmin {
     /**
      * The init function
      */
     public function init() {
         parent::init();
+    }
 
+    /*
+     * The default action
+     */
+    public function indexAction() {
         $layout = Zend_Layout::getMvcInstance();
-        $layout->setLayout('login')
+        $layout->setLayout('default')
                ->setLayoutPath(APP_PATH . '/admin/templates/' . $this->config->general->admintemplate . '/');
     }
 }
