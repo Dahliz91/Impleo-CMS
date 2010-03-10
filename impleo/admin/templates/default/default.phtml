@@ -10,9 +10,10 @@
              ->uiEnable();
         echo $this->jQuery();
 
-        $this->headScript()->appendFile('/modules/custom.js')
-                           ->appendFile('/modules/superfish.js')
-                           ->appendFile('/modules/easyTooltip.js');
+        $this->headScript()->appendFile('/modules/easyTooltip.js')
+                           ->appendFile('/modules/hoverIntent.js')
+						   ->appendFile('/modules/superfish.js')
+						   ->appendFile('/modules/custom.js');
         echo $this->headScript();
     ?>
     <?php echo $this->headLink()->appendStylesheet($this->config->system->url . '/css/admintemplates/' . $this->config->general->admintemplate . '/style.css'); ?>

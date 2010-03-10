@@ -22,4 +22,40 @@ class Impleo_ControllerAdmin extends Impleo_ControllerAction {
         $layout->setLayout('login')
                ->setLayoutPath(APP_PATH . '/admin/templates/' . $this->config->general->admintemplate . '/');
     }
+
+    /**
+     * Check if user is authenticated
+     *
+     * @param <type> $accesspoint
+     * @param <type> $redirect
+     * @param <type> $message
+     */
+    public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
+        $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
+        if( $accesspoint == '' ) {
+            $module = 'admin';
+            $controller = $this->_getParam('controller');
+            $action = $this->_getParam('action');
+            $accesspoint = ("$module/$controller");
+        }
+
+        $acl = Zend_Registry::get('ACL');
+        if( $acl->has($accesspoint) ) {
+            if( $action == NULL ) {
+                $access = $acl->isAllowed( $role, $accesspoint );
+            } else {
+                $access = $acl->isAllowed( $role, $accesspoint, $action );
+            }
+        } else {
+            if( $role == 'Superadmins' ) {
+                $access = true;
+            }
+        }
+
+        if( $access == true || $access = 1 ) {
+            return $access;
+        } else {
+            $this->_redirect( $this->config->system->url . $redirect, $message );
+        }
+    }
 }

@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::14.05
-     * @version			v1.0 2010-03-07::21.07
+     * @version			v1.0 2010-03-10::21.22
      */
 
 class Impleo_ControllerAction extends Zend_Controller_Action {
@@ -19,8 +19,18 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
      * The init function
      */
     public function init() {
+        // Authentication and Authorization
+        $acl = Zend_Registry::get('ACL');
+        $this->_loadUser();
+        $role = isset($this->user->role) ? $this->user->role : 'Guests';
+
+        // MVC
         $view = Zend_Layout::getMvcInstance()->getView();
         $this->view = $view;
+        $view->addHelperPath("Impleo/View/Helper", "Impleo_View_Helper");
+
+        // Check if authenticated
+        $this->_checkAuth();
 
         // Load version settings
 	$oVersion = new Impleo_Version();
@@ -33,7 +43,97 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
         $this->config = Zend_Registry::get('config');
         $this->view->config = $this->config;
 
+        // Load any Flashmessages if sent!
+        $this->flashMessenger = $this->_helper->getHelper('FlashMessenger');
+        $this->view->messages = $this->flashMessenger->getMessages();
+
         $this->loadMeta();
+    }
+
+    /**
+     * Check if user is authenticated
+     *
+     * @param <type> $accesspoint
+     * @param <type> $redirect
+     * @param <type> $message
+     */
+    public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
+        $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
+        if( $accesspoint == '' ) {
+            $route = $this->_getParam('route');
+            $accesspoint = ("$route");
+        }
+
+        $acl = Zend_Registry::get('ACL');
+        // Temp
+        $access = $acl->isAllowed($role, $accesspoint);
+
+        if( $access == true || $access = 1 ) {
+            return $access;
+        } else {
+            $this->_redirect( $this->config->system->url . $redirect, $message );
+        }
+    }
+
+    /**
+     * Check if user is allowed to access resource
+     * 
+     * @param <type> $role
+     * @param <type> $accesspoint
+     */
+    public function _isAllowed( $role, $accesspoint ) {
+        $acl = Zend_Registry::get('ACL');
+        
+        if( !$acl->has($accesspoint) ) {
+            return '-1';
+        } else {
+            return $acl->isAllowed( $role, $accesspoint );
+        }
+    }
+
+    /**
+     * Load the User Identity
+     */
+    public function _loadUser() {
+        $auth = Zend_Auth::getInstance();
+        if( $auth->hasIdentity() ) {
+            $this->user = $this->view->user = $auth->getIdentity();
+        }
+    }
+
+    /**
+     * Redirect with a status message
+     *
+     * @param object $url
+     * @param object $message [optional]
+     * @param array $options [optional]
+     */
+    public function _redirect( $url, $message = '', array $options = array() ) {
+        if( $message != '' ) {
+            $this->_helper->FlashMessenger( $message );
+        }
+
+        $this->_helper->redirector->gotoUrl( $this->config->system->url . $url, $options );
+    }
+
+    /**
+     * Setting the access permissions
+     *
+     * @param <type> $role
+     * @param <type> $accesspoint
+     * @param <type> $permission
+     */
+    public function _setAccess($role, $accesspoint, $permission = 'allow') {
+        $acl = Zend_Registry::get('ACL');
+        if( !$acl->has($accesspoint) ) {
+            $acl->add( new Zend_Acl_Resource($accesspoint) );
+        }
+
+        /**
+         * @todo $permission seems to be a none existing function
+         */
+        //$acl->$permission($role, $accesspoint);
+        $acl->isAllowed($role, $accesspoint);
     }
 
     /**

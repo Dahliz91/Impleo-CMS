@@ -1,4 +1,11 @@
 			$(function(){
+				$("ul.nav").superfish({
+					animation:{
+					height: "show",
+					width: "show"
+					}, speed : 500
+				});
+
 				//tooltip
 				$(".tooltip").easyTooltip();
 		

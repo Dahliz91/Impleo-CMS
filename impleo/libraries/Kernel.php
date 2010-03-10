@@ -8,7 +8,7 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-02-22::22.44
-     * @version		v1.0 2010-03-03::22.51
+     * @version		v1.0 2010-03-10::20.59
      */
 
 class Kernel {
@@ -111,10 +111,6 @@ class Kernel {
             'admin'     => APP_PATH . '/admin/controllers',
         ));
 
-        /**
-         * @todo should I implement Modules?
-         */
-
         $router = $frontController->getRouter();
         $router->addDefaultRoutes();
         
@@ -133,6 +129,10 @@ class Kernel {
         }
         Zend_Layout::startMvc($options);
         $view = new Zend_View();
+
+        // Setup ACL
+        $acl = $this->setACL();
+        Zend_Registry::set('ACL', $acl);
 
         return $frontController;
     }
@@ -183,5 +183,17 @@ class Kernel {
     public function render(Zend_Controller_Response_Abstract $response) {
         $response->sendHeaders();
         $response->outputBody();
+    }
+
+    public function setAcl() {
+        $_model = new Acl();
+
+        $acl = new Zend_Acl();
+
+        // Temporary
+        $acl->allow('Guests');
+        $acl->allow('Superadmins');
+
+        return $acl;
     }
 }
