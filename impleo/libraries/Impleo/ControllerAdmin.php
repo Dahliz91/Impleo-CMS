@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::22.07
-     * @version			v1.0 2010-03-05::15.33
+     * @version			v1.0 2010-03-11::22.06
      */
 
 class Impleo_ControllerAdmin extends Impleo_ControllerAction {
@@ -32,11 +32,13 @@ class Impleo_ControllerAdmin extends Impleo_ControllerAction {
      */
     public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
         $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
+        $access = false;
+
         if( $accesspoint == '' ) {
             $module = 'admin';
             $controller = $this->_getParam('controller');
             $action = $this->_getParam('action');
-            $accesspoint = ("$module/$controller");
+            $accesspoint = ("$module:$controller");
         }
 
         $acl = Zend_Registry::get('ACL');
@@ -52,10 +54,10 @@ class Impleo_ControllerAdmin extends Impleo_ControllerAction {
             }
         }
 
-        if( $access == true || $access = 1 ) {
+        if( $access == true || $access == 1 ) {
             return $access;
         } else {
-            $this->_redirect( $this->config->system->url . $redirect, $message );
+            $this->_redirect( $this->config->system->url . $redirect, array(), $message );
         }
     }
 }

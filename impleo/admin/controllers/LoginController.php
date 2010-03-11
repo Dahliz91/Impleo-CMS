@@ -11,13 +11,12 @@
      * @version			v1.0 2010-03-11::22.18
      */
 
-class Admin_IndexController extends Impleo_ControllerAdmin {
+class Admin_LoginController extends Impleo_ControllerAdmin {
     /**
      * The init function
      */
     public function init() {
         parent::init();
-        $this->_redirect( $this->config->system->url . '/admin/dashboard', array(), $message );
     }
 
     /*

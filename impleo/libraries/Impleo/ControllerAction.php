@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::14.05
-     * @version			v1.0 2010-03-10::21.22
+     * @version			v1.0 2010-03-11::21.42
      */
 
 class Impleo_ControllerAction extends Zend_Controller_Action {
@@ -59,6 +59,8 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
      */
     public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
         $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
+        $access = true;
+
         if( $accesspoint == '' ) {
             $route = $this->_getParam('route');
             $accesspoint = ("$route");
@@ -68,10 +70,10 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
         // Temp
         $access = $acl->isAllowed($role, $accesspoint);
 
-        if( $access == true || $access = 1 ) {
+        if( $access == true || $access == 1 ) {
             return $access;
         } else {
-            $this->_redirect( $this->config->system->url . $redirect, $message );
+            $this->_redirect( $this->config->system->url . $redirect, array(), $message );
         }
     }
 
@@ -108,7 +110,7 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
      * @param object $message [optional]
      * @param array $options [optional]
      */
-    public function _redirect( $url, $message = '', array $options = array() ) {
+    public function _redirect( $url, array $options = array(), $message = '' ) {
         if( $message != '' ) {
             $this->_helper->FlashMessenger( $message );
         }

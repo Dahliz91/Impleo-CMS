@@ -8,7 +8,7 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-02-22::22.44
-     * @version		v1.0 2010-03-10::20.59
+     * @version		v1.0 2010-03-11::21.27
      */
 
 class Kernel {
@@ -50,6 +50,7 @@ class Kernel {
         // Setting up the Autoloader - Eliminates the need for include/require e.g
         require_once('Zend/Loader/Autoloader.php');
         $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->setFallbackAutoloader(true);
         $autoloader->registerNamespace(array('Impleo_'));
 
         // Load the Config
@@ -65,8 +66,8 @@ class Kernel {
         ini_set('display_errors', $this->config->phpSettings->display_errors);
         ini_set('error_reporting', $this->config->phpSettings->error_reporting);
 
-        $frontController = $this->initMVC();
         $this->initDB();
+        $frontController = $this->initMVC();
 
         $this->initRoutes($frontController);
         $response = $this->dispatch($frontController);
@@ -148,18 +149,18 @@ class Kernel {
         $route = new Zend_Controller_Router_Route(
             ':route',
             array(
-				'module'   		=> 'default',
-				'controller'	=> 'index',
-				'action'		=> 'index'
-			)
+                'module'   	=> 'default',
+                'controller'	=> 'index',
+                'action'        => 'index'
+            )
         );
 	$route2 = new Zend_Controller_Router_Route(
             'admin/:controller/:action/*',
-			array(
-				'module' 		=> 'admin',
-				'controller'	=> 'index',
-				'action'		=> 'index'
-			)
+            array(
+                'module'        => 'admin',
+                'controller'	=> 'index',
+                'action'	=> 'index'
+            )
         );
 
         $router->addRoute('admin', $route2);
@@ -188,10 +189,44 @@ class Kernel {
     public function setAcl() {
         $_model = new Acl();
 
-        $acl = new Zend_Acl();
+        $roles = $_model->getRoles();
+        foreach( $roles as $role ) {
+            $acl_named[$role['id']] = $role['role'];
+        }
 
-        // Temporary
-        $acl->allow('Guests');
+        $acl = new Zend_Acl();
+        foreach( $roles as $role ) {
+            if( $role['parent_id'] > 0 ) {
+                $acl->addRole(new Zend_Acl_Role($role['role'], $acl_named[$role['parent_id']]));
+            } else {
+                $acl->addRole(new Zend_Acl_Role($role['role']));
+            }
+
+            $acl->add(new Zend_Acl_Resource($role['role']));
+            $acl->allow($role['role'], $role['role']);
+        }
+
+        // Load settings
+        $access = $_model->getAccess();
+
+        foreach($access as $acc) {
+            if( !$acl->has($acc['controller']) ) {
+                $acl->add( new Zend_Acl_Resource($acc['controller']) );
+                //echo "New ACL {$acc['controller']}<br />";
+            }
+            if( $acc['route'] == NULL ) {
+                if( $acc['role'] != 'Guests' ) {
+                    $acl->deny('Guests', $acc['controller'], $acc['action']);
+                }
+                $acl->allow( $acc['role'], $acc['controller'], $acc['action'] );
+            } else {
+                if( $acc['role'] != 'Guests' ) {
+                    $acl->deny('Guests', $acc['route']);
+                }
+                $acl->allow( $acc['role'], $acc['route'] );
+            }
+        }
+
         $acl->allow('Superadmins');
 
         return $acl;

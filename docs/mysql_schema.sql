@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `impleo_core_aclaccess` (
 --
 
 INSERT INTO `impleo_core_aclaccess` (`id`, `route`, `controller`, `action`, `role`) VALUES
-(1, NULL, NULL, NULL, 'Superadmins');
+(1, NULL, 'admin:login', NULL, 'Guests');
 
 --
 -- Table structure for table `impleo_core_aclroles`

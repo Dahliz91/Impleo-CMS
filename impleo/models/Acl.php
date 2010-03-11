@@ -8,12 +8,28 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-03-10::20.42
-     * @version		v1.0 2010-03-10::20.42
+     * @version		v1.0 2010-03-11::21.46
      */
 
 class Acl extends DB {
     /**
+     * Fetch access right from DB
+     *
+     * @return <type> Access List
+     */
+    public function getAccess() {
+        $table = $this->config->database->prefix . 'core_aclaccess';
+
+        $select = $this->db->select()
+                           ->from( $table );
+        $result = $this->db->query( $select );
+        return $result->fetchAll();
+    }
+
+    /**
      * Fetch user roles from DB
+     *
+     * @return <type> Roles List
      */
     public function getRoles() {
             $table = $this->config->database->prefix . 'core_aclroles';
