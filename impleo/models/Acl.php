@@ -8,10 +8,14 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-03-10::20.42
-     * @version		v1.0 2010-03-11::21.46
+     * @version		v1.0 2010-03-12::15.36
      */
 
 class Acl extends DB {
+    public function init() {
+
+    }
+
     /**
      * Fetch access right from DB
      *
@@ -27,6 +31,16 @@ class Acl extends DB {
     }
 
     /**
+     * Fetch access by providing ID
+     * @param object $accessid
+     */
+    public function getAccessById($accessid) {
+        $table = $this->config->database->prefix . 'core_aclaccess';
+
+        return $this->db->fetchAll("SELECT * FROM $table WHERE id = '$accessid'");
+    }
+
+    /**
      * Fetch user roles from DB
      *
      * @return <type> Roles List
@@ -39,5 +53,15 @@ class Acl extends DB {
                                 ->order(array('parent_id ASC'));
             $result = $this->db->query($select);
             return $result->fetchAll();
+    }
+
+    /**
+     * Fetch role by providing ID
+     * @param object $roleid
+     */
+    public function getRoleById($roleid) {
+        $table = $this->config->database->prefix . 'core_aclroles';
+
+        return $this->db->fetchAll("SELECT * FROM $table WHERE id = '$roleid'");
     }
 }

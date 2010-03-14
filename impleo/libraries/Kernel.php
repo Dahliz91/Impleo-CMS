@@ -8,7 +8,7 @@
      *
      * @subpackage	Core Package
      * @since		v1.0 2010-02-22::22.44
-     * @version		v1.0 2010-03-11::21.27
+     * @version		v1.0 2010-03-13::01.38
      */
 
 class Kernel {
@@ -145,15 +145,28 @@ class Kernel {
     public function initRoutes(Zend_Controller_Front $frontController) {
         // Retrieve the router from the frontController
         $router = $frontController->getRouter();
+
+        if( $_SERVER['REQUEST_URI'] == '/' ) {
+            $route = new Zend_Controller_Router_Route(
+                '',
+                array(
+                    'module'        => 'default',
+                    'controller'    => 'index',
+                    'action'        => 'index',
+                    'route'         => '/'
+                )
+            );
+        } else {
+            $route = new Zend_Controller_Router_Route(
+                ':route',
+                array(
+                    'module'        => 'default',
+                    'controller'    => 'index',
+                    'action'        => 'index'
+                )
+            );
+        }
         
-        $route = new Zend_Controller_Router_Route(
-            ':route',
-            array(
-                'module'   	=> 'default',
-                'controller'	=> 'index',
-                'action'        => 'index'
-            )
-        );
 	$route2 = new Zend_Controller_Router_Route(
             'admin/:controller/:action/*',
             array(

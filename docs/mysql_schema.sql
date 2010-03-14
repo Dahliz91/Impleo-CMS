@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `impleo_core_aclaccess` (
 --
 
 INSERT INTO `impleo_core_aclaccess` (`id`, `route`, `controller`, `action`, `role`) VALUES
-(1, NULL, 'admin:login', NULL, 'Guests');
+(1, NULL, 'admin:index', NULL, 'Guests');
 
 --
 -- Table structure for table `impleo_core_aclroles`
@@ -41,6 +41,28 @@ INSERT INTO `impleo_core_aclroles` (`id`, `role`, `parent_id`) VALUES
 (5, 'Managers', 4),
 (6, 'Admins', 5),
 (7, 'Superadmins', 0);
+
+--
+-- Struktur för tabell `impleo_core_routes`
+--
+
+CREATE TABLE IF NOT EXISTS `impleo_core_routes` (
+  `id` int(11) NOT NULL auto_increment,
+  `route` text NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `title` varchar(255) default NULL,
+  `metakeyword` varchar(255) default NULL,
+  `metadescription` varchar(255) default NULL,
+  `canonical` text,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Data i tabell `impleo_core_routes`
+--
+
+INSERT INTO `impleo_core_routes` (`id`, `route`, `key`, `title`, `metakeyword`, `metadescription`, `canonical`) VALUES
+(1, '/', 'Index', 'Homepage', 'Impleo, CMS, Homepage', 'Impleo CMS Homepage', '/index.php');
 
 --
 -- Table structure for table `impleo_core_users`

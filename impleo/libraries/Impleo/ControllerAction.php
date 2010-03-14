@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::14.05
-     * @version			v1.0 2010-03-11::21.42
+     * @version			v1.0 2010-03-13::01.24
      */
 
 class Impleo_ControllerAction extends Zend_Controller_Action {
@@ -57,7 +57,7 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
      * @param <type> $redirect
      * @param <type> $message
      */
-    public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
+    public function _checkAuth( $accesspoint = '', $redirect = '/admin/index/login/', $message = 'You are not Authorized to view this Page' ) {
         $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
         $access = true;
 
@@ -67,8 +67,13 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
         }
 
         $acl = Zend_Registry::get('ACL');
+        if( $acl->has($accesspoint) ) {
+            $access = $acl->isAllowed( $role, $accesspoint );
+        } else {
+            $access = true;
+        }
         // Temp
-        $access = $acl->isAllowed($role, $accesspoint);
+        //$access = $acl->isAllowed($role, $accesspoint);
 
         if( $access == true || $access == 1 ) {
             return $access;
@@ -153,8 +158,4 @@ class Impleo_ControllerAction extends Zend_Controller_Action {
                    ->setLocalPath($this->config->system->url . '/modules/jquery/jquery-1.4.2.min.js')
                    ->setUiLocalPath($this->config->system->url . '/modules/jquery/jquery-ui-1.8rc3.custom.min.js');
     }
-
-    /**
-     * @todo adding functions headScript, headStyle and so on.
-     */
 }

@@ -8,7 +8,7 @@
      *
      * @subpackage		Core Package
      * @since			v1.0 2010-02-23::22.07
-     * @version			v1.0 2010-03-11::22.06
+     * @version			v1.0 2010-03-11::22.07
      */
 
 class Impleo_ControllerAdmin extends Impleo_ControllerAction {
@@ -30,7 +30,7 @@ class Impleo_ControllerAdmin extends Impleo_ControllerAction {
      * @param <type> $redirect
      * @param <type> $message
      */
-    public function _checkAuth( $accesspoint = '', $redirect = '/admin/login/', $message = 'You are not Authorized to view this Page' ) {
+    public function _checkAuth( $accesspoint = '', $redirect = '/admin/index/login/', $message = 'You are not Authorized to view this Page' ) {
         $role = isset( $this->user->role ) ? $this->user->role : 'Guests';
         $access = false;
 

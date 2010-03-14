@@ -14,20 +14,20 @@
         <a href="<?php $this->config->system->url . '/admin'; ?>"><img src="<?php echo $this->config->system->url . '/images/admintemplates/' . $this->config->general->admintemplate . '/logo.png'; ?>" alt="Impleo CMS Administration" /></a>
     </div>
     <div id="box">
-        <form action="" method="post">
+        <form action="/admin/index/login" method="post">
+            <?php echo $this->layout()->content ?>
             <p class="main">
                 <label>Username: </label>
-                <input type="text" name="username" />
+                <input type="text" name="username" value="<?php echo @$_POST['username'];?>" />
                 <label>Password: </label>
                 <input type="password" name="password" />
             </p>
             <p class="space">
-                <span><input type="checkbox">Remember me?</span>
+                <span><input type="checkbox" />Remember me?</span>
                 <input type="submit" value="Login" class="login" />
             </p>
         </form>
     </div>
 </div>
-<?php echo $this->layout()->content ?>
 </body>
 </html>
